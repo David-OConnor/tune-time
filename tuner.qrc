@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="metronome button">
+    <file>start.svg</file>
+    <file>stop.svg</file>
+  </qresource>
+  <qresource prefix="program icon">
+    <file>icon.svg</file>
+  </qresource>
+  <qresource prefix="visbeat">
+    <file>lightoff.svg</file>
+    <file>lighton.svg</file>
+  </qresource>
+</RCC>

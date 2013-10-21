@@ -1,0 +1,7 @@
+build/
+misc examples/
+__pycache__/
+*.pyc
+*.ico
+*.db
+*~

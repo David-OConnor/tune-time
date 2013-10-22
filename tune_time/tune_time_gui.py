@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Dave\Desktop\Programming\tune_time\tune_time.ui'
+# Form implementation generated from reading ui file 'C:\Users\Dave\Desktop\Programming\tune_time\resources\tune_time.ui'
 #
-# Created: Sun Oct 13 16:42:19 2013
+# Created: Tue Oct 22 12:24:31 2013
 #      by: PyQt5 UI code generator 5.0.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -204,4 +204,4 @@ class Ui_Main(object):
         self.action_visbeat.setText(_translate("Main", "Visual metronome beat"))
         self.action_nonstandard_tuning.setText(_translate("Main", "Nonstandard Tuning"))
 
-import tuner_rc
+import tune_time_rc

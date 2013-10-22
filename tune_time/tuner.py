@@ -28,7 +28,6 @@ import numpy as np
 import pyaudio 
 from PyQt5 import QtCore
 
-
 #peak finding: find linear, or otherwise regression of sample. Use the values as dynamic zeros, per sample position
 #find the maximum and minimum values that occur between these '0' crossings using a climber.
 #maybe divide the sample into subsamples and get a linear regress for each??

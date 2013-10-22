@@ -32,7 +32,7 @@
    <string>Tune Time v0.1</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="tuner.qrc">
+   <iconset resource="tune_time.qrc">
     <normaloff>:/program icon/icon.svg</normaloff>:/program icon/icon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -112,7 +112,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="tuner.qrc">
+     <iconset resource="tune_time.qrc">
       <normaloff>:/metronome button/start.svg</normaloff>:/metronome button/start.svg</iconset>
     </property>
     <property name="iconSize">
@@ -141,7 +141,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="tuner.qrc">
+     <iconset resource="tune_time.qrc">
       <normaloff>:/metronome button/start.svg</normaloff>:/metronome button/start.svg</iconset>
     </property>
     <property name="iconSize">
@@ -478,7 +478,7 @@
   </action>
  </widget>
  <resources>
-  <include location="tuner.qrc"/>
+  <include location="tune_time.qrc"/>
  </resources>
  <connections/>
 </ui>

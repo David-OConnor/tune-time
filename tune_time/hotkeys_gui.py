@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Dave\Desktop\Programming\tune_time\hotkeys.ui'
+# Form implementation generated from reading ui file 'C:\Users\Dave\Desktop\Programming\tune_time\resources\hotkeys.ui'
 #
-# Created: Sun Oct 13 16:42:20 2013
+# Created: Tue Oct 22 12:24:31 2013
 #      by: PyQt5 UI code generator 5.0.1
 #
 # WARNING! All changes made in this file will be lost!

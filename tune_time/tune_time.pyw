@@ -33,6 +33,7 @@ from hotkeys_gui import Ui_Hotkeys
 import module_locator
  
 DIR = module_locator.path()
+DIR_RES = os.path.abspath(os.path.join(DIR, os.pardir, 'resources'))
 
 #to-do:
 #Glitch with visbeat: Sometimes the off marker will remain visible after disabling visbeat. Usually during high-temp playback.

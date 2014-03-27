@@ -26,7 +26,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtSvg
 
 import metronome
 import tuner
-from tuner_gui import Ui_Main
+from tune_time_gui import Ui_Main
 from about_gui import Ui_About
 #from settings_gui import Ui_Settings
 from hotkeys_gui import Ui_Hotkeys
@@ -66,21 +66,20 @@ class Main(QtWidgets.QMainWindow):
         
         self.ui.action_save.triggered.connect(self.save)
         self.ui.action_about.triggered.connect(self.about)
-        #self.ui.action_settings.triggered.connect(self.settings)
-        self.ui.action_visbeat.triggered.connect(self.visbeat_enable) ###check what the signal name is
+        self.ui.action_visbeat.triggered.connect(self.visbeat_enable)
         self.ui.action_hotkeys.triggered.connect(self.hotkeys)
         self.ui.btn_tuner.clicked.connect(self.start_tuner)
         self.ui.btn_metronome.clicked.connect(self.start_metronome)
         self.ui.d_bpm.valueChanged.connect(self.update_bpm_dial)
-        self.ui.sb_bpm.valueChanged.connect(self.update_bpm_le)
+        self.ui.sb_bpm.valueChanged.connect(self.update_bpm_sb)
         self.ui.vs_volume.valueChanged.connect(self.update_volume_slider)
         self.ui.sb_meter.valueChanged.connect(self.update_meter)
         
-        self.start_icon.addPixmap(QtGui.QPixmap(":/metronome button/start.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.stop_icon.addPixmap(QtGui.QPixmap(":/metronome button/stop.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.start_icon.addPixmap(QtGui.QPixmap(':/metronome button/start.svg'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.stop_icon.addPixmap(QtGui.QPixmap(':/metronome button/stop.svg'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         
-        self.ui.svg_visbeat_on = QtSvg.QSvgWidget('lighton.svg', self.ui.centralwidget)
-        self.ui.svg_visbeat_off = QtSvg.QSvgWidget('lightoff.svg', self.ui.centralwidget)
+        self.ui.svg_visbeat_on = QtSvg.QSvgWidget(':/visbeat/lighton.svg', self.ui.centralwidget)
+        self.ui.svg_visbeat_off = QtSvg.QSvgWidget(':/visbeat/lightoff.svg', self.ui.centralwidget)
         self.ui.svg_visbeat_on.setGeometry(QtCore.QRect(250, 490, 60, 60))
         self.ui.svg_visbeat_on.hide()
         self.ui.svg_visbeat_off.setGeometry(QtCore.QRect(250, 490, 60, 60))
@@ -160,8 +159,6 @@ class Main(QtWidgets.QMainWindow):
         else:
             self.set_instruments("Metronome click", "Castanets")
             self.update_A(440)
-        #self.update_instrument_tick()
-        #self.update_instrument_accent() 
         self.update_meter()
         self.update_bpm_dial()
         self.update_volume_slider()
@@ -208,28 +205,23 @@ class Main(QtWidgets.QMainWindow):
                     item.setChecked(True)
 
     def about(self):
-        """Displays the About window."""
+        """Display the About window."""
         self.w = About()
         self.w.show()
      
     def nonstandard_tuning(self):
         self.w = NonstandardTuning()
         self.w.show()
-     
-    #def settings(self):
-     #   """Displays the Settings window."""
-      #  self.w = Settings()
-       # self.w.show()
         
     def hotkeys(self):
-        """Displays the Hotkeys window."""
+        """Display the Hotkeys window."""
         self.w = Hotkeys()
         self.w.show()
     
     def update_A(self, A):
         tuner.notes, tuner.notes_ordered = {}, {} # Required to prevent TypeError: 'dict' object is not callable.
         tuner.notes, tuner.notes_ordered = tuner.populate_notes(A)[0], tuner.populate_notes(A)[1] #potentailly clean this up in the tuner module.
-        self.A = A #Used for setting the value on the Nonstard_Tuning window.
+        self.A = A  # Used for setting the value on the Nonstard_Tuning window.
     
     def update_tick(self, inst):
         metronome.m.instrument_tick = metronome.m.instruments[inst]
@@ -242,14 +234,10 @@ class Main(QtWidgets.QMainWindow):
 
     def start_tuner(self):
         tuner.stop_flag = False
-        #tuner.t.freqSignal.connect(lambda freq: self.ui.lbl_freq.setText(' '.join([freq, "Hz"])))
-        #tuner.t.noteSignal.connect(lambda note: self.ui.lbl_note.setText(note))
-        #tuner.t.centsSignal.connect(lambda cents: self.ui.lbl_cents.setText(cents))
-        #tuner.t.hs_centsSignal.connect(lambda hs_cents: self.ui.tuner_display.setValue(hs_cents))
         tuner.t.updateSignal.connect(lambda freq, note, cents: self.update_tuner(freq, note, cents))
         
         tuner_instance.start(priority=5)
-        print("PRIORITY",tuner_instance.Priority()) #why isn't this working?
+        print("PRIORITY", tuner_instance.Priority())  # TODO why isn't this working?
         #self.ui.btn_tuner.setText("Stop")
         self.ui.btn_tuner.setIcon(self.stop_icon)
         self.ui.btn_tuner.disconnect()
@@ -283,7 +271,8 @@ class Main(QtWidgets.QMainWindow):
         self.ui.btn_metronome.clicked.connect(self.stop_metronome)
 
     def stop_metronome(self):
-        metronome_instance.quit() # Closes the thread's event loop, killing the metronome's QTimer.
+        # Closes the thread's event loop, killing the metronome's QTimer.
+        metronome_instance.quit()
         self.ui.btn_metronome.setIcon(self.start_icon)
         self.ui.btn_metronome.clicked.disconnect()
         self.ui.btn_metronome.clicked.connect(self.start_metronome)
@@ -291,21 +280,25 @@ class Main(QtWidgets.QMainWindow):
     def update_bpm_dial(self):
         bpm = self.ui.d_bpm.sliderPosition()
         metronome.m.bpm = bpm
+        self.ui.sb_bpm.blockSignals(True)
         self.update_tempo()
         self.ui.sb_bpm.setValue(bpm)
+        self.ui.sb_bpm.blockSignals(False)
 
     def update_volume_slider(self):
         metronome.m.volume = self.ui.vs_volume.sliderPosition() / 100
           
-    def update_bpm_le(self):
+    def update_bpm_sb(self):
         try:
             bpm = int(self.ui.sb_bpm.value())
         except ValueError:
             print("VALUEE RROR WHAT's UP?")
             return None
         metronome.m.bpm = bpm
+        self.ui.d_bpm.blockSignals(True)
         self.update_tempo()
         self.ui.d_bpm.setValue(bpm)
+        self.ui.d_bpm.blockSignals(False)
             
     def update_tempo(self):
         bpm = self.ui.d_bpm.sliderPosition()
@@ -419,8 +412,8 @@ class TunerDisplay(QtWidgets.QWidget):
         x0 = self.w/2 
         y0 = self.h - self.marg_b
         x1 = self.w/2 - (r*math.cos(theta))
-        y1 = self.h - (r*math.sin(theta) + self.marg_b)   ###
-        return(x0, y0, x1, y1)
+        y1 = self.h - (r*math.sin(theta) + self.marg_b)
+        return x0, y0, x1, y1
      
     def draw_tick(self, cents, qp, base, side='both', label=False, shade=False):
         qp.drawLine(*self.tick_coords(base, -cents, side))
@@ -473,7 +466,7 @@ class TunerDisplay(QtWidgets.QWidget):
             x1, y1 = xc + a, yc + b
         else:
             x1, y1 = xc, yc
-        return(x0, y0, x1, y1)
+        return x0, y0, x1, y1
         
         #x0, y0, x1, y1 = self.needle_coords(theta, self.r)
         #m = (y1-y0) / (x1-x0)
@@ -496,7 +489,7 @@ class TunerDisplay(QtWidgets.QWidget):
     
     def find_theta(self, cents):
         """Returns the angle, in radians, correspnoding to an input cents"""
-        ratio = (self.theta_max-self.theta_min) / 100 # 100 is the range of cents, -50 to 50.
+        ratio = (self.theta_max-self.theta_min) / 100  # 100 is the range of cents, -50 to 50.
         theta = math.radians(((cents + 50) * ratio) + self.theta_min)
         return theta
    
@@ -586,8 +579,7 @@ class PlotThread(QtCore.QThread):
     def run(self):
         plot()
 
- 
-         
+      
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     main = Main()

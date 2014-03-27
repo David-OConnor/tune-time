@@ -1,6 +1,10 @@
-build/
+*/build/
 misc examples/
 __pycache__/
+
+*iws
+workspace.xml
+
 *.pyc
 *.ico
 *.db

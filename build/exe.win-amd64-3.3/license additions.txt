@@ -1,0 +1,16 @@
+Icon baseline: 
+
+Numpy Copyright 2005-2013, NumPy Developers
+
+PyQt Copyright © 2013 Riverbank Computing
+GPL
+
+Qt Copyright Digia
+LGPL
+
+PyGame Copyright
+LGPL
+
+Special thanks: Endolith on Github, for 
+'Frequency estimation methods in Python.
+https://gist.github.com/endolith/255291

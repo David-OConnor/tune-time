@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Dave\Desktop\Programming\tune_time\resources\tune_time.ui'
+# Form implementation generated from reading ui file '/media/dave/0C3ADCEA3ADCD236/Users/Dave/Desktop/Programming/tune_time/resources/tune_time.ui'
 #
-# Created: Tue Oct 22 12:24:31 2013
+# Created: Sat Oct 26 12:20:57 2013
 #      by: PyQt5 UI code generator 5.0.1
 #
 # WARNING! All changes made in this file will be lost!
